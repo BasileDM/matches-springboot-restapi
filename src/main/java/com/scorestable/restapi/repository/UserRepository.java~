@@ -1,4 +1,0 @@
-package com.scorestable.restapi.repository;
-
-public interface UserRepository {
-}
