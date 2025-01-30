@@ -1,14 +1,24 @@
 package com.scorestable.restapi.model;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class LoginResponse {
-    @Getter
     private String token;
 
     private long expiresIn;
 
+    // Getters and setters
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public long getExpiresIn() {
+        return expiresIn;
+    }
+
+    public void setExpiresIn(long expiresIn) {
+        this.expiresIn = expiresIn;
+    }
 }
