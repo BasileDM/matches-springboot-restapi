@@ -3,6 +3,10 @@ package com.scorestable.restapi.controller;
 import com.scorestable.restapi.model.Match;
 import com.scorestable.restapi.service.MatchService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +31,10 @@ public class MatchController {
 
     @Tag(name = "GET", description = "GET endpoints")
     @Operation(summary = "Get match by id", description = "Get a match providing its ID. Returns 404 if the match is not found")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Match found", content = @Content(schema = @Schema(implementation = Match.class))),
+            @ApiResponse(responseCode = "404", description = "Match not found")
+    })
     @GetMapping("/{id}")
     public ResponseEntity<Match> getMatchById(@PathVariable Long id) {
         Optional<Match> match = matchService.getMatchById(id);
