@@ -1,6 +1,5 @@
 package com.scorestable.restapi.controller;
 
-import com.scorestable.restapi.dtos.RegisterUserDto;
 import com.scorestable.restapi.model.User;
 import com.scorestable.restapi.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,7 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/register")
-    public User register(RegisterUserDto user) {
+    public User register(User user) {
         return authService.register(user);
     }
 
