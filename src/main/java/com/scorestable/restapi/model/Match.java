@@ -3,26 +3,28 @@ package com.scorestable.restapi.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "books") // Optional: Specify table name explicitly
+@Table(name = "matches")
 public class Match {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
-    private String author;
-    private String isbn;
+    private String teamA;
+    private String teamB;
+    private Integer scoreA;
+    private Integer scoreB;
 
     // No-argument constructor
     public Match() {
     }
 
     // All-argument constructor (optional, for convenience)
-    public Match(String title, String author, String isbn) {
-        this.title = title;
-        this.author = author;
-        this.isbn = isbn;
+    public Match(String teamA, String teamB, Integer scoreA, Integer scoreB) {
+        this.teamA = teamA;
+        this.teamB = teamB;
+        this.scoreA = scoreA;
+        this.scoreB = scoreB;
     }
 
     // Getters and setters
@@ -34,27 +36,35 @@ public class Match {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getTeamA() {
+        return teamA;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTeamA(String teamA) {
+        this.teamA = teamA;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getTeamB() {
+        return teamB;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setTeamB(String teamB) {
+        this.teamB = teamB;
     }
 
-    public String getIsbn() {
-        return isbn;
+    public Integer getScoreA() {
+        return scoreA;
     }
 
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
+    public void setScoreA(Integer score) {
+        this.scoreA = score;
+    }
+
+    public Integer getScoreB() {
+        return scoreB;
+    }
+
+    public void setScoreB(Integer score) {
+        this.scoreB = score;
     }
 }
