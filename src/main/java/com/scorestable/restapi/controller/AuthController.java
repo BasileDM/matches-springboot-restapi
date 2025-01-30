@@ -1,27 +1,46 @@
 package com.scorestable.restapi.controller;
 
+import com.scorestable.restapi.dtos.LoginUserDto;
 import com.scorestable.restapi.dtos.RegisterUserDto;
+import com.scorestable.restapi.model.LoginResponse;
 import com.scorestable.restapi.model.User;
 import com.scorestable.restapi.service.AuthService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.scorestable.restapi.service.JwtService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
 @RequestMapping("/auth")
+@RestController
 public class AuthController {
+    private final JwtService jwtService;
 
-    @Autowired
-    private AuthService authService;
+    private final AuthService authenticationService;
 
-    @PostMapping("/register")
-    public User register(RegisterUserDto user) {
-        return authService.register(user);
+    public AuthController(JwtService jwtService, AuthService authenticationService) {
+        this.jwtService = jwtService;
+        this.authenticationService = authenticationService;
     }
 
-//    @GetMapping("/login")
-//    public String login() {
-//        return authService.login();
-//    }
+    @PostMapping("/signup")
+    public ResponseEntity<User> register(@RequestBody RegisterUserDto registerUserDto) {
+        User registeredUser = authenticationService.register(registerUserDto);
+
+        return ResponseEntity.ok(registeredUser);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUserDto loginUserDto) {
+        User authenticatedUser = authenticationService.login(loginUserDto);
+
+        String jwtToken = jwtService.generateToken(authenticatedUser);
+
+        LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setToken(jwtToken);
+        loginResponse.setExpiresIn(jwtService.getExpirationTime());
+
+        return ResponseEntity.ok(loginResponse);
+    }
 }
