@@ -1,16 +1,24 @@
 package com.scorestable.restapi.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "matches")
 public class Match {
 
     @Id
+    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
+    @Size(min = 1, max = 50)
     private String teamA;
+
+    @NotNull
+    @Size(min = 1, max = 50)
     private String teamB;
     private Integer scoreA;
     private Integer scoreB;
